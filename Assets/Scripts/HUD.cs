@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class HUD : MonoBehaviour
 {
-    public Transform carPlayer;
+    public GameManager gameManager;
+    public TextMeshProUGUI timer;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,8 +15,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = carPlayer.transform.position + new Vector3(0, 1, -5);
+        timer.text = gameManager.StageCurrentTime.ToString();
     }
-
-    
 }

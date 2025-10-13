@@ -4,8 +4,10 @@ using UnityEngine.InputSystem;
 public class CarController : MonoBehaviour
 {
     public float gripFactor = 0.95f;
-    public float accelerationFactor = 500;
-    public float turnFactor = 2f;
+    public float accelerationFactor = 15;
+
+    public float brakeFactor = 53.22f;
+    public float turnFactor = 2.5f;
     public float maxSpeed = 20;
 
     float accelerationInput = 0;
@@ -50,14 +52,24 @@ public class CarController : MonoBehaviour
 
         if (accelerationInput == 0)
         {
-            rb.linearDamping = Mathf.Lerp(rb.linearDamping, 3.0f, Time.fixedDeltaTime * 3);
+            rb.linearDamping = Mathf.Lerp(rb.linearDamping, 3.0f, Time.fixedDeltaTime * 1.1f);
         }
         else
         {
             rb.linearDamping = 0;
         }
 
-        Vector2 AccVector = transform.up * accelerationInput * accelerationFactor;
+        Vector2 AccVector = Vector2.zero;
+
+        if (accelerationInput > 0)
+        {
+            AccVector = transform.up * accelerationInput * accelerationFactor;
+        }
+        else
+        {
+            AccVector = transform.up * accelerationInput * brakeFactor;
+        }
+
 
         rb.AddForce(AccVector, ForceMode2D.Force);
 
