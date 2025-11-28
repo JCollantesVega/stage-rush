@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41748d0d6663610478bb68ec191af49a, type: 3}
+  m_Name: PaceNotes
+  m_EditorClassIdentifier: Assembly-CSharp::PaceNoteData
+  entries:
+  - direction: 1
+    severity: 1
+    icon: {fileID: 21300000, guid: 1673126e02d8f6d4fa3a7ba7d13ad485, type: 3}
+  - direction: 1
+    severity: 2
+    icon: {fileID: 21300000, guid: 7550f7f0119e81d4d9faaebea59424cd, type: 3}
+  - direction: 1
+    severity: 3
+    icon: {fileID: 21300000, guid: e34e60872da48014d8e3a7f09084c90a, type: 3}
+  - direction: 1
+    severity: 4
+    icon: {fileID: 21300000, guid: 9168d06d98d188c40beb67da68ca6752, type: 3}
+  - direction: 1
+    severity: 5
+    icon: {fileID: 21300000, guid: 2eb5dcb649b78414d980e90021230579, type: 3}
+  - direction: 1
+    severity: 6
+    icon: {fileID: 21300000, guid: 226c50c342565034a9772e04ef100e78, type: 3}
+  - direction: 0
+    severity: 1
+    icon: {fileID: 21300000, guid: e2a4cfe3948f83f4eb95218182873c8d, type: 3}
+  - direction: 0
+    severity: 2
+    icon: {fileID: 21300000, guid: 1d0d93797c1811846a1f45c969589284, type: 3}
+  - direction: 0
+    severity: 3
+    icon: {fileID: 21300000, guid: 001d580ca54c4664eb52134839282132, type: 3}
+  - direction: 0
+    severity: 4
+    icon: {fileID: 21300000, guid: 10e297c05a794824abc2d1ba1ab66ebf, type: 3}
+  - direction: 0
+    severity: 5
+    icon: {fileID: 21300000, guid: 1f5f7f50d39b2864ca440330c01cc5df, type: 3}
+  - direction: 0
+    severity: 6
+    icon: {fileID: 21300000, guid: 231fea721b9c0a94a88b9e0a5029cdea, type: 3}

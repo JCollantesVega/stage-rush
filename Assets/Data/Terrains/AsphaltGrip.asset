@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75d053d7fb5076479939e20d638ffdf, type: 3}
+  m_Name: AsphaltGrip
+  m_EditorClassIdentifier: Assembly-CSharp::TerrainGripHandler
+  surfaceName: Asphalt
+  forwardFriction:
+    extremumSlip: 0.3
+    extremumValue: 1.4
+    asymptoteSlip: 1
+    asymptoteValue: 0.9
+    stiffness: 1.8
+  sidewaysFriction:
+    extremumSlip: 0.4
+    extremumValue: 1.5
+    asymptoteSlip: 1.2
+    asymptoteValue: 0.8
+    stiffness: 1.6
+  smokeColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
+  startLifeTime: 1
+  startSpeed: 1.5
+  startSize: 0.75
+  slipThreshold: 0.4
+  maxEmissionRate: 10
+  material: {fileID: 2100000, guid: 03e737c2b085c074c8852c79bec926d1, type: 2}
