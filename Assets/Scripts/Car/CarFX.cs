@@ -15,6 +15,10 @@ public class CarFX : MonoBehaviour
     public GameObject smokePrefab;
     public GameObject tyreTrail;
 
+    [Header("Ligths References")]
+    public Light rightBrakeLight;
+    public Light leftBrakeLight;
+
     [Header("Sound Settings")]
     [Header("Engine")]
     public AudioSource engineSound;
@@ -164,6 +168,20 @@ public class CarFX : MonoBehaviour
 
         engineSound.pitch = Mathf.Lerp(engineSound.pitch, engineTargetPtich + (rpmRatio >= revLimiterThreshold ? revPitchBoost : 0), Time.deltaTime * SmoothTime);
 
+    }
+
+    public void HandleBrakeLights()
+    {
+        if(InputManager.Instance.Brake > 0)
+        {
+            rightBrakeLight.intensity = 100;
+            leftBrakeLight.intensity = 100;
+        }
+        else
+        {
+            rightBrakeLight.intensity = 0;
+            leftBrakeLight.intensity = 0;
+        }
     }
 
 }

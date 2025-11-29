@@ -85,6 +85,7 @@ public class CarController : MonoBehaviour
         HandleSteering();
         carFX.HandleWheelParticles(colliders, wheelParticles);
         carFX.HandleEngineSound(RPM / redLine);
+        carFX.HandleBrakeLights();
         UpdateWheels();
 
         Debug.Log($"Wheel RPM: FL:{(int)colliders.FLWheel.rpm} FR:{(int)colliders.FRWheel.rpm} RL:{(int)colliders.RLWheel.rpm} RR:{(int)colliders.RRWheel.rpm}");
