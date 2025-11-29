@@ -8,6 +8,8 @@ public class HUD : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI speedText;
 
+    public TextMeshProUGUI gearText;
+
     [SerializeField] private Image RPMFill, progressFill;
 
     private float currentRPM, maxRPM;
@@ -42,6 +44,7 @@ public class HUD : MonoBehaviour
 
         RPMFill.fillAmount = Mathf.Clamp01(currentRPM / maxRPM);
         progressFill.fillAmount = Mathf.Clamp01(currentProgress / maxProgress);
+        gearText.text = $"{(CarController.Instance.gearState == GearState.Neutral ? "N" : CarController.Instance.currentGear+1)}";
     }
 
     void OnPaceNoteShow(Direction direction, int severity)
