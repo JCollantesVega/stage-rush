@@ -66,7 +66,7 @@ public class AuthController : MonoBehaviour
 
     }
 
-    public async Task<bool> LogInUser(string email, string password)
+    public async Task<bool> LogInUser(string email, string password, bool saveSession)
     {
         Task<Session> singIn = SupabaseManager.Instance.Supabase.Auth.SignIn(email,password);
 
@@ -86,12 +86,11 @@ public class AuthController : MonoBehaviour
         {
             return false;
         }
-        else
-        {
-            Debug.Log($"Sign in success {session.User?.Id} Token: {session.AccessToken} HASTA AQUI {session.User?.Aud} {session.User?.Email} {session.RefreshToken}");
-            OnLoginSuccess?.Invoke();
-            return true;
-        }
+        
+        PlayerPrefs.SetString("refresh_token", session.RefreshToken);
+        PlayerPrefs.Save();
+        OnLoginSuccess?.Invoke();
+        return true;
     }
 
     public async void LogOut()
@@ -99,11 +98,15 @@ public class AuthController : MonoBehaviour
         try
         {
             await SupabaseManager.Instance.Supabase.Auth.SignOut();
-
         }
         catch(Exception ex)
         {
             Debug.LogError($"Error when logging out:{ex.Message}");
+        }
+        finally
+        {
+            PlayerPrefs.DeleteKey("refresh_token");
+            PlayerPrefs.Save();
         }
     }
 

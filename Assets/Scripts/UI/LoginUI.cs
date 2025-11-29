@@ -10,6 +10,7 @@ public class LoginUI : MonoBehaviour
     [SerializeField] private TMP_InputField emailField, passwordField;
     [SerializeField] private Button logInButton, signUpButton;
     [SerializeField] private TextMeshProUGUI invalidCredentialsWarning;
+    [SerializeField] private Toggle keepSession;
 
     
 
@@ -36,7 +37,7 @@ public class LoginUI : MonoBehaviour
             email = await AuthController.Instance.GetEmailByUserName(email);
         }
         
-        bool result = await AuthController.Instance.LogInUser(email, passwordField.text);
+        bool result = await AuthController.Instance.LogInUser(email, passwordField.text, keepSession.isOn);
         
         if(!result)
         {
