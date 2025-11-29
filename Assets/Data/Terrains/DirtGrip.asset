@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TerrainGripHandler
   surfaceName: Dirt
   forwardFriction:
-    extremumSlip: 0.45
-    extremumValue: 1.1
-    asymptoteSlip: 1.2
-    asymptoteValue: 0.7
-    stiffness: 1.2
+    extremumSlip: 1.6
+    extremumValue: 1.2
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.95
+    stiffness: 1.3
   sidewaysFriction:
     extremumSlip: 1.6
     extremumValue: 1.2
-    asymptoteSlip: 1.4
-    asymptoteValue: 0.65
-    stiffness: 1
+    asymptoteSlip: 0.8
+    asymptoteValue: 0.95
+    stiffness: 1.3
   smokeColor: {r: 0.5377358, g: 0.34523365, b: 0.16487184, a: 1}
   startLifeTime: 1
   startSpeed: 5
