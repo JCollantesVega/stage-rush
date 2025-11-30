@@ -15,6 +15,8 @@ public class CarController : MonoBehaviour
     public float brakeForce; //fuerza de frenado aplicada
     public AnimationCurve steeringCurve; //curva de giro según velocidad
     [SerializeField] public DriveType driveType; //tipo de tracción(delantera, trasera o 4 ruedas)
+    private float wheelBase; //distancia entre ejes(delantero y trasero)
+    private float trackWidth; //ancho del coche
 
     [Header("Engine Config")]
     public float RPM; //revoluciones por minuto del motor
@@ -73,6 +75,7 @@ public class CarController : MonoBehaviour
         // }
 
         carFX.InitiateParticles(wheelParticles, colliders);
+        
     }
 
     void FixedUpdate()
@@ -87,6 +90,9 @@ public class CarController : MonoBehaviour
         carFX.HandleEngineSound(RPM / redLine);
         carFX.HandleBrakeLights();
         UpdateWheels();
+
+        wheelBase = Vector3.Distance(colliders.FLWheel.transform.position, colliders.RLWheel.transform.position);
+        trackWidth = Vector3.Distance(colliders.FLWheel.transform.position, colliders.FRWheel.transform.position);
     }
 
 
@@ -244,8 +250,25 @@ public class CarController : MonoBehaviour
     {
         float steeringAngle = steerInput * steeringCurve.Evaluate(speed*3.6f);
 
-        colliders.FLWheel.steerAngle = Mathf.Lerp(colliders.FLWheel.steerAngle, steeringAngle, 5f * Time.deltaTime);
-        colliders.FRWheel.steerAngle = Mathf.Lerp(colliders.FRWheel.steerAngle, steeringAngle, 5f * Time.deltaTime);
+        float angleRad = steeringAngle * Mathf.Deg2Rad;
+
+        float turnRadius = wheelBase / Mathf.Tan(angleRad);
+
+        float leftAngle, rightAngle;
+
+        if(steeringAngle > 0)
+        {
+            leftAngle = Mathf.Atan(wheelBase / (turnRadius + (trackWidth * 0.5f))) * Mathf.Rad2Deg;
+            rightAngle = Mathf.Atan(wheelBase / (turnRadius - (trackWidth * 0.5f))) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            leftAngle = Mathf.Atan(wheelBase / (turnRadius - (trackWidth * 0.5f))) * Mathf.Rad2Deg;
+            rightAngle = Mathf.Atan(wheelBase / (turnRadius + (trackWidth * 0.5f))) * Mathf.Rad2Deg;
+        }
+
+        colliders.FLWheel.steerAngle = Mathf.Lerp(colliders.FLWheel.steerAngle, leftAngle, 5f * Time.deltaTime);
+        colliders.FRWheel.steerAngle = Mathf.Lerp(colliders.FRWheel.steerAngle, rightAngle, 5f * Time.deltaTime);
     }
 
     //actualiza posición y rotación de las ruedas según wheel collider

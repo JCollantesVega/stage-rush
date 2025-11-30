@@ -1043,9 +1043,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   gearState: 0
-  increaseGearRPM: 6450
-  decreaseGearRPM: 4250
-  changeGearTime: 0.5
+  increaseGearRPM: 6000
+  decreaseGearRPM: 2500
+  changeGearTime: 0.4
   wheelRPM: 0
   colliders:
     FLWheel: {fileID: 4380261807268820323}
