@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class RaceManager : MonoBehaviour
     public int[] sectorTimes = new int[3];
     private float lastSectorTime;
     public bool StartedTimer { get { return startedTimer; } }
+    private bool allowedToStart = false;
+    public int penalizedTime{get; set;}
+
+    public int startCounter = 4;
 
     public event Action<StageCompletedArgs> OnStageCompleted;
 
@@ -27,7 +32,11 @@ public class RaceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    void Start()
+    {
+        StartCoroutine(StartStage());
     }
 
     void Update()
@@ -46,7 +55,12 @@ public class RaceManager : MonoBehaviour
             timeInMs = 0;
             lastSectorTime = 0;
 
-            for(int i = 0; i< sectorTimes.Length; i++)
+            if (!allowedToStart)
+            {
+                penalizedTime += 10000;
+                Debug.Log("Penalti para el Real Madrid");
+            }
+            for (int i = 0; i< sectorTimes.Length; i++)
             {
                 sectorTimes[i] = 0;
             }
@@ -67,6 +81,8 @@ public class RaceManager : MonoBehaviour
         {
             startedTimer = false;
             LapTime lapTime = new LapTime(sectorTimes);
+
+            lapTime.totalTime += penalizedTime;
 
             var StageCompletedArgs = new StageCompletedArgs(ValidateCheckPoints(), lapTime, GameManager.Instance.selectedCar.name, SceneManager.GetActiveScene().name);
 
@@ -102,6 +118,35 @@ public class RaceManager : MonoBehaviour
         sectorTimes[sectorIndex - 1] = currentSectorTime;
 
         lastSectorTime = timeInMs;
+
+    }
+
+    IEnumerator StartStage()
+    {
+        yield return new WaitForSeconds(2);
+        
+        while(startCounter >= 0)
+        {
+            if(startCounter == 0) allowedToStart = true;
+            yield return new WaitForSeconds(1);
+            startCounter--;
+        }
+
+        yield return null;
+    }
+
+    public void RespawnCar(Vector3 position, Quaternion rotation)
+    {
+        GameObject player = CarController.Instance.gameObject;
+
+        Rigidbody rb  = player.GetComponent<Rigidbody>();
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        player.transform.SetPositionAndRotation(position+Vector3.up*0.2f, rotation);
+
+        rb.Sleep();
 
     }
 

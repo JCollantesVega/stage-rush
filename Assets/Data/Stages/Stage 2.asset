@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stage 2
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   Id: 2
-  Title: Desert Safari Road
+  Title: Emerald Valley
   SceneName: 02_meadow

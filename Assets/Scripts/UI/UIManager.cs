@@ -36,17 +36,17 @@ public class UIManager : MonoBehaviour
 
         if (pauseUI.enabled)
         {
-            pauseUI.enabled = false;
+            pauseUI.gameObject.SetActive(false);
         }
 
         if (completedStageUI.enabled)
         {
-            completedStageUI.enabled = false;
+            completedStageUI.gameObject.SetActive(false);
         }
         
         if(!inGameUI.enabled)
         {
-            inGameUI.enabled = true;
+            inGameUI.gameObject.SetActive(true);
         }
     }
 
@@ -69,13 +69,11 @@ public class UIManager : MonoBehaviour
     {
         if (isPaused)
         {
-            //inGameUI.enabled = false;
-            pauseUI.enabled = true;
+            pauseUI.gameObject.SetActive(true);
         }
         else
         {
-            //inGameUI.enabled = true;
-            pauseUI.enabled = false;
+            pauseUI.gameObject.SetActive(false);
         }
     }
 
@@ -83,7 +81,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = .2f;
 
-        completedStageUI.enabled = true;
+        completedStageUI.gameObject.SetActive(true);
         CompletedStageUI ui = completedStageUI.GetComponent<CompletedStageUI>();
 
         ui.TimeLabel.text = $"Tiempo: {args.LapTime.FormatTime(args.LapTime.totalTime)}";

@@ -69,4 +69,8 @@ MonoBehaviour:
   isStartTrigger: 0
   isFinnishTrigger: 0
   isTurnIndicator: 1
+  sectorIndex: 0
+  orderIndex: 0
+  turnDirection: 0
+  turnSeverity: 1
   completed: 0

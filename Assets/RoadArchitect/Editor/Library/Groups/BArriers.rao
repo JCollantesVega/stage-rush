@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WizardObjectLibrary xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <thumbString />
+  <displayName>BArriers</displayName>
+  <desc />
+  <isDefault>false</isDefault>
+  <isBridge>false</isBridge>
+  <fileName>BArriers</fileName>
+</WizardObjectLibrary>
+#### RoadArchitect ####
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EdgeObjectLibraryMaker xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <edgeObjectString>Assets/Prefabs/Props/barrier.prefab</edgeObjectString>
+  <isCombinedMesh>false</isCombinedMesh>
+  <isCombinedMeshCollider>false</isCombinedMeshCollider>
+  <subType>Right</subType>
+  <meterSep>8</meterSep>
+  <isToggled>false</isToggled>
+  <isBridge>false</isBridge>
+  <isDefault>false</isDefault>
+  <isOncomingRotation>true</isOncomingRotation>
+  <isStatic>false</isStatic>
+  <isMatchingTerrain>false</isMatchingTerrain>
+  <isSingle>false</isSingle>
+  <isMaterialOverriden>false</isMaterialOverriden>
+  <horizontalSep>5</horizontalSep>
+  <horizontalCurve>
+    <keys>
+      <Keyframe>
+        <time>0</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+      <Keyframe>
+        <time>1</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+    </keys>
+    <preWrapMode>ClampForever</preWrapMode>
+    <postWrapMode>ClampForever</postWrapMode>
+  </horizontalCurve>
+  <verticalRaise>0.45</verticalRaise>
+  <verticalCurve>
+    <keys>
+      <Keyframe>
+        <time>0</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+      <Keyframe>
+        <time>1</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+    </keys>
+    <preWrapMode>ClampForever</preWrapMode>
+    <postWrapMode>ClampForever</postWrapMode>
+  </verticalCurve>
+  <customRotation>
+    <x>-90</x>
+    <y>0</y>
+    <z>0</z>
+  </customRotation>
+  <isRotationAligning>true</isRotationAligning>
+  <isXRotationLocked>true</isXRotationLocked>
+  <isYRotationLocked>false</isYRotationLocked>
+  <isZRotationLocked>false</isZRotationLocked>
+  <startTime>0</startTime>
+  <endTime>1</endTime>
+  <singleOnlyBridgePercent>0</singleOnlyBridgePercent>
+  <singlePosition>0</singlePosition>
+  <isStartMatchingRoadDefinition>false</isStartMatchingRoadDefinition>
+  <startMatchRoadDef>0</startMatchRoadDef>
+  <objectName>EdgeObject</objectName>
+  <thumbString />
+  <desc />
+  <displayName>BarrierRight</displayName>
+</EdgeObjectLibraryMaker>
+#### RoadArchitect ####
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EdgeObjectLibraryMaker xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <edgeObjectString>Assets/Prefabs/Props/barrier.prefab</edgeObjectString>
+  <isCombinedMesh>false</isCombinedMesh>
+  <isCombinedMeshCollider>false</isCombinedMeshCollider>
+  <subType>Right</subType>
+  <meterSep>8</meterSep>
+  <isToggled>false</isToggled>
+  <isBridge>false</isBridge>
+  <isDefault>false</isDefault>
+  <isOncomingRotation>true</isOncomingRotation>
+  <isStatic>false</isStatic>
+  <isMatchingTerrain>false</isMatchingTerrain>
+  <isSingle>false</isSingle>
+  <isMaterialOverriden>false</isMaterialOverriden>
+  <horizontalSep>-4.5</horizontalSep>
+  <horizontalCurve>
+    <keys>
+      <Keyframe>
+        <time>0</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+      <Keyframe>
+        <time>1</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+    </keys>
+    <preWrapMode>ClampForever</preWrapMode>
+    <postWrapMode>ClampForever</postWrapMode>
+  </horizontalCurve>
+  <verticalRaise>0.45</verticalRaise>
+  <verticalCurve>
+    <keys>
+      <Keyframe>
+        <time>0</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+      <Keyframe>
+        <time>1</time>
+        <value>1</value>
+        <inTangent>0</inTangent>
+        <outTangent>0</outTangent>
+        <inWeight>0.333333343</inWeight>
+        <outWeight>0.333333343</outWeight>
+        <weightedMode>None</weightedMode>
+      </Keyframe>
+    </keys>
+    <preWrapMode>ClampForever</preWrapMode>
+    <postWrapMode>ClampForever</postWrapMode>
+  </verticalCurve>
+  <customRotation>
+    <x>90</x>
+    <y>0</y>
+    <z>0</z>
+  </customRotation>
+  <isRotationAligning>true</isRotationAligning>
+  <isXRotationLocked>true</isXRotationLocked>
+  <isYRotationLocked>false</isYRotationLocked>
+  <isZRotationLocked>false</isZRotationLocked>
+  <startTime>0</startTime>
+  <endTime>1</endTime>
+  <singleOnlyBridgePercent>0</singleOnlyBridgePercent>
+  <singlePosition>0</singlePosition>
+  <isStartMatchingRoadDefinition>false</isStartMatchingRoadDefinition>
+  <startMatchRoadDef>0</startMatchRoadDef>
+  <objectName>EdgeObject1</objectName>
+  <thumbString />
+  <desc>BarrierLeft</desc>
+  <displayName>EdgeObject</displayName>
+</EdgeObjectLibraryMaker>
+#### RoadArchitect ####

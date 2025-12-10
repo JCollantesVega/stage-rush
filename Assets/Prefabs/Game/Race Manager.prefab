@@ -44,3 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ffed417cc9cbb4b814183e9ede5f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RaceManager
+  sectorTimes: 000000000000000000000000
+  startCounter: 4

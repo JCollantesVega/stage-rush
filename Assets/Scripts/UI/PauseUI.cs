@@ -28,6 +28,8 @@ public class PauseUI : MonoBehaviour
 
     void OnEnable()
     {
+        
+
         EventSystem.current.SetSelectedGameObject(FindFirstObjectByType<Button>().gameObject);
     }
 

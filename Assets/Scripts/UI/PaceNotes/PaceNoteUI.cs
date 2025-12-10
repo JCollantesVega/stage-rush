@@ -11,7 +11,7 @@ public class PaceNoteUI : MonoBehaviour
 
     [Header("Animation Settings")]
     public float enterDuration = 0.35f;
-    public float holdDuration = 1.5f;
+    public float holdDuration = 1f;
     public float exitDuration = 0.35f;
 
     // These will be computed automatically
@@ -25,21 +25,19 @@ public class PaceNoteUI : MonoBehaviour
     {
         rect = GetComponent<RectTransform>();
 
-        
-
         // --- ANCLAR SIEMPRE AL BORDE INFERIOR IZQUIERDO ---
-        rect.anchorMin = new Vector2(0f, 0f);
-        rect.anchorMax = new Vector2(0f, 0f);
-        rect.pivot = new Vector2(0f, 0);
+        rect.anchorMin = new Vector2(.5f, .5f);
+        rect.anchorMax = new Vector2(.5f, .5f);
+        rect.pivot = new Vector2(.5f, .5f);
 
         ResetPositions();
     }
 
     void ResetPositions()
     {
-        startPosition = new Vector2(40, -200); // Entra desde abajo
-        stayPosition = new Vector2(40, 100);    // Posición visible
-        exitPosition = new Vector2(-300, 40);  // Sale por la izquierda
+        startPosition = new Vector2(300, 250); // Entra desde abajo
+        stayPosition = new Vector2(0,250);    // Posición visible
+        exitPosition = new Vector2(-300, 250);  // Sale por la izquierda
     }
 
 

@@ -5,20 +5,32 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+
+    [Header("Time label")]
     public TextMeshProUGUI timeText;
+
+    [Header("Speed label")]
     public TextMeshProUGUI speedText;
 
+    [Header("Gearbox label")]
     public TextMeshProUGUI gearText;
-
-    [SerializeField] private Image RPMFill, progressFill;
-
+    [SerializeField] private Image RPMFill;
     private float currentRPM, maxRPM;
 
+    [Header("Stage Progress label")]
+    [SerializeField] private Image progressFill;
     private float currentProgress, maxProgress;
     
+
+    [Header("Pace notes label")]
     public PaceNoteData paceNotes;
     [SerializeField]private GameObject notePrebaf;
     [SerializeField]private RectTransform uiParent;
+
+    [Header("Traffic light label")]
+    [SerializeField] private Sprite redLight, greenLight;
+    [SerializeField] private Image light_1, light_2, light_3;
+    [SerializeField] private GameObject trafficLightParent;
 
     void Start()
     {
@@ -26,6 +38,14 @@ public class HUD : MonoBehaviour
         maxProgress = CheckPointList.Instance.checkPointSingles.Count();
 
         CheckPointList.Instance.PaceNoteHandler += OnPaceNoteShow;
+
+        light_1.sprite = redLight;
+        light_2.sprite = redLight;
+        light_3.sprite = redLight;
+
+        light_1.enabled = true;
+        light_2.enabled = true;
+        light_3.enabled = true;
 
     }
 
@@ -37,6 +57,8 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleTrafficLight();
+
         currentRPM = CarController.Instance.RPM;
         currentProgress = CheckPointList.Instance.GetCompletedCheckpoints();
         timeText.text = RaceManager.Instance.StageCurrentTime;
@@ -58,5 +80,39 @@ public class HUD : MonoBehaviour
         ui.Play();
 
         
+    }
+
+    void HandleTrafficLight()
+    {
+        if(RaceManager.Instance.startCounter == 3)
+        {
+            light_3.enabled = false;
+        }
+
+        if(RaceManager.Instance.startCounter == 2)
+        {
+            light_2.enabled = false;
+        }
+        
+        if(RaceManager.Instance.startCounter == 1)
+        {
+            light_1.enabled = false;
+        }
+
+        if(RaceManager.Instance.startCounter == 0)
+        {
+            light_1.sprite = greenLight;
+            light_2.sprite = greenLight;
+            light_3.sprite = greenLight;
+
+            light_1.enabled = true;
+            light_2.enabled = true;
+            light_3.enabled = true;
+        }
+
+        if(RaceManager.Instance.startCounter == -1)
+        {
+            trafficLightParent.SetActive(false);
+        }
     }
 }

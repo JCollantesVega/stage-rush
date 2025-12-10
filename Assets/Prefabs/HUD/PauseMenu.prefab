@@ -248,6 +248,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b9efe0c47e67c47a8971a98d94b8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseUI
+  buttons:
+  - {fileID: 3602731745208189905}
+  - {fileID: 5906861943339185345}
+  - {fileID: 7984417004389863092}
 --- !u!1 &2457161032653755395
 GameObject:
   m_ObjectHideFlags: 0

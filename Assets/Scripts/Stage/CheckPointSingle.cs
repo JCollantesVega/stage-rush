@@ -8,6 +8,7 @@ public class CheckPointSingle : MonoBehaviour
     public bool isTurnIndicator = false;
     public int sectorIndex;
     public int orderIndex;
+    public int penaltyTime;
 
     [Header("Turn indicator")]
     public Direction turnDirection;

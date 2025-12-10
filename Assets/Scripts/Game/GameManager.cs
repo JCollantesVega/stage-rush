@@ -102,7 +102,8 @@ public class GameManager : MonoBehaviour
             selectedStage = availableStages[index];
         }
 
-        LoadScene(selectedStage.SceneName);
+        PlayerPrefs.SetString("SceneToLoad", selectedStage.SceneName);
+        LoadScene("LoadingScreen");
     }
 
     public void LoadScene(string sceneName)

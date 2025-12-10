@@ -174,8 +174,8 @@ public class CarFX : MonoBehaviour
     {
         if(InputManager.Instance.Brake > 0)
         {
-            rightBrakeLight.intensity = 100;
-            leftBrakeLight.intensity = 100;
+            rightBrakeLight.intensity = 50;
+            leftBrakeLight.intensity = 50;
         }
         else
         {

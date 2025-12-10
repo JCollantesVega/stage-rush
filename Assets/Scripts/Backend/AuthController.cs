@@ -121,6 +121,14 @@ public class AuthController : MonoBehaviour
         return displayNames;
     }
 
+    public async void ChangePassword(string newPassword)
+    {
+        await SupabaseManager.Instance.Supabase.Auth.Update(new UserAttributes
+        {
+            Password = newPassword
+        });
+    }
+
     public async Task<bool> CanRegisterUser(string userName)
     {
         List<DisplayNameRecord> displayNameRecords = await GetDisplayNameRecordsAsync();
