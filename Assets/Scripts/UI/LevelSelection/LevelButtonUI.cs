@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,8 +22,8 @@ public class LevelButtonUI : MonoBehaviour
     }
     
 
-    public void OnClick()
+    public async void OnClick()
     {
-        GameManager.Instance.SelectScene(sceneIndex);
+        await GameManager.Instance.SelectScene(sceneIndex);
     }
 }

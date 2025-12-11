@@ -15,6 +15,7 @@ public class RegisterUI : MonoBehaviour
 
         userNameAlreadyExists.gameObject.SetActive(false);
         mailAlreadyRegistered.gameObject.SetActive(false);
+        registeredComplete.gameObject.SetActive(false);
     }
 
 
@@ -39,7 +40,10 @@ public class RegisterUI : MonoBehaviour
         switch(result)
         {
             case RegisterResult.Success:
-                
+                emailField.text = "";
+                passwordField.text = "";
+                userNameField.text = "";
+                registeredComplete.gameObject.SetActive(true);
                 break;
 
             case RegisterResult.UserNameExists:

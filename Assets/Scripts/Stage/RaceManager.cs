@@ -47,7 +47,7 @@ public class RaceManager : MonoBehaviour
         }
     }
     
-    public void StartTimer()
+    public async void StartTimer()
     {
         if (!startedTimer)
         {
@@ -55,10 +55,11 @@ public class RaceManager : MonoBehaviour
             timeInMs = 0;
             lastSectorTime = 0;
 
+            await DatabaseController.Instance.RegisterAttemptStart();
+
             if (!allowedToStart)
             {
                 penalizedTime += 10000;
-                Debug.Log("Penalti para el Real Madrid");
             }
             for (int i = 0; i< sectorTimes.Length; i++)
             {
@@ -150,13 +151,15 @@ public class RaceManager : MonoBehaviour
 
     }
 
-    public string FormatTime(int msTime)
+    public string FormatTime(int time)
     {
-        int min = msTime / 60000;
-        int sec = msTime % 60000 / 1000;
-        int ms = msTime % 1000;
+        int min = time / 60000;
+        int sec = time % 60000 / 1000;
+        int ms = time % 1000;
+
         return $"{min:D2}:{sec:D2}.{ms:D3}";
     }
+
 
     private string FormatCurrentTime()
     {

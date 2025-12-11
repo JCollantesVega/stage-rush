@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -46,9 +48,9 @@ public class CarController : MonoBehaviour
     [SerializeField]private float steerInput;
 
     public float speed{ get; private set; } //velocidad del coche en u/s(se escala a m/s)
+    public float distanceTraveled = 0;
 
     public Rigidbody rb; //referencia al RigidBody del coche
-
 
     float SpeedAtRedline(float gearRatio, float finalDrive, float wheelRadius, float redLine)
     {
@@ -74,6 +76,9 @@ public class CarController : MonoBehaviour
         //     Debug.Log($"Marcha {i+1}: ratio={gearRatios[i]} -> {v:F1} km/h");
         // }
 
+        wheelBase = Vector3.Distance(colliders.FLWheel.transform.position, colliders.RLWheel.transform.position);
+        trackWidth = Vector3.Distance(colliders.FLWheel.transform.position, colliders.FRWheel.transform.position);
+
         carFX.InitiateParticles(wheelParticles, colliders);
         
     }
@@ -91,10 +96,20 @@ public class CarController : MonoBehaviour
         carFX.HandleBrakeLights();
         UpdateWheels();
 
-        wheelBase = Vector3.Distance(colliders.FLWheel.transform.position, colliders.RLWheel.transform.position);
-        trackWidth = Vector3.Distance(colliders.FLWheel.transform.position, colliders.FRWheel.transform.position);
+        distanceTraveled += rb.linearVelocity.magnitude * Time.deltaTime;
     }
 
+    void OnDestroy()
+    {
+        _ = UpdateDistanceAsync();
+
+        Instance = null;
+    }
+
+    private async Task UpdateDistanceAsync()
+    {
+        await DatabaseController.Instance.RegisterDistanceTravelled((int)distanceTraveled);
+    }
 
     //toma y procesa inputs obtenidos de la instancia InputManager
     private void GetInput()
@@ -110,6 +125,11 @@ public class CarController : MonoBehaviour
                 if (gasInput > 0)
                 {
                     gearState = GearState.Running;
+                }
+
+                if(speed == 0 && brakeInput > 0.1f)
+                {
+                    gearState = GearState.Reverse;
                 }
             }
             clutch = InputManager.Instance.Clutch > 0f ? 1 : Mathf.Lerp(clutch, 0, 1f);
@@ -154,7 +174,7 @@ public class CarController : MonoBehaviour
             if (clutch > 0.1f || gearState == GearState.Neutral)
             {
                 //si se está pulsando el embrague o está en punto muerto, las RPM suben sin aplicar fuerza a als ruedas
-                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM, redLine * gasInput) + Random.Range(-50, 50), Time.deltaTime * 3f);
+                RPM = Mathf.Lerp(RPM, Mathf.Max(idleRPM, redLine * gasInput) + UnityEngine.Random.Range(-50, 50), Time.deltaTime * 3f);
                 if(RPM >= redLine)
                 {
                     RPM = Mathf.Lerp(RPM, redLine - 200f, Time.deltaTime * 20f);
@@ -291,10 +311,6 @@ public class CarController : MonoBehaviour
         UpdateWheel(colliders.RRWheel, wheelMeshes.RRWheel, wheelParticles.RRWheel, wheelParticles.RRWheelTrail);
     }
 
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
 
     IEnumerator ChangeGear(int gearChange)
     {
@@ -366,4 +382,4 @@ public class WheelParticles
 
 public enum DriveType { RWD, FWD, AWD }
 
-public enum GearState{ Neutral, Running, CheckingChange, Changing}
+public enum GearState{ Neutral, Running, Reverse, CheckingChange, Changing}

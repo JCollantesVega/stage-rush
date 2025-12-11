@@ -1872,9 +1872,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2de6e1d23f177a441933779591209caa, type: 2}
   - {fileID: 11400000, guid: c0f19a44cb121264b9a00be2165c7871, type: 2}
   availableStages:
-  - {fileID: 11400000, guid: 105ec5fac64c95d4a9c639f16fe18f81, type: 2}
-  - {fileID: 11400000, guid: 17c4f4d85533f6a418f11ead5784c38a, type: 2}
   - {fileID: 11400000, guid: 29daf9226ea55d942b2a1755a120a3a5, type: 2}
+  - {fileID: 11400000, guid: 17c4f4d85533f6a418f11ead5784c38a, type: 2}
   previewCars:
   - {fileID: 919278684664592235, guid: d9492aba4d833d244973cfde007b4ec1, type: 3}
   - {fileID: 6970150053082194732, guid: 6a2b4291207660e4288a2129684fa8ab, type: 3}

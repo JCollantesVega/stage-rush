@@ -10,6 +10,8 @@ public class RecordsUI : MonoBehaviour
     public GameObject levelButtonPrefab;
     public Transform buttonParentLocation;
 
+    [SerializeField] private Button goBackButton;
+
     void Start()
     {
 
@@ -20,6 +22,13 @@ public class RecordsUI : MonoBehaviour
             buttonUI.Setup(stage.Title, stage.Id);
             buttonUI.button.onClick.AddListener(() => OnLevelSelected(stage.Id));
         }
+
+        goBackButton.onClick.AddListener(OnGoBackPerformed);
+    }
+
+    public void OnGoBackPerformed()
+    {
+        GameManager.Instance.LoadScene("MainMenu");
     }
 
     void OnLevelSelected(int levelId)

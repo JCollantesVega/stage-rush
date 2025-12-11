@@ -28,8 +28,6 @@ public class PauseUI : MonoBehaviour
 
     void OnEnable()
     {
-        
-
         EventSystem.current.SetSelectedGameObject(FindFirstObjectByType<Button>().gameObject);
     }
 
@@ -46,5 +44,24 @@ public class PauseUI : MonoBehaviour
     public void onMainMenuClickPerformed()
     {
         GameManager.Instance.LoadScene("MainMenu");
+    }
+
+    public void onResetCarClickPerformed()
+    {
+        int lastCheckpoint = CheckPointList.Instance.lastCheckpointPassed;
+
+        if(lastCheckpoint == -1)
+        {
+            GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
+            RaceManager.Instance.RespawnCar(spawnPoint.transform.position, spawnPoint.transform.rotation);
+        }
+        else
+        {
+            Transform checkPointPosition = CheckPointList.Instance.checkPointSingles[CheckPointList.Instance.lastCheckpointPassed].transform;
+
+            RaceManager.Instance.RespawnCar(checkPointPosition.position, checkPointPosition.rotation);
+        }
+
+        pauseManager.TogglePause();
     }
 }

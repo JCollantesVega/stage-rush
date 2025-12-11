@@ -1,40 +1,30 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ChangePasswordUI : MonoBehaviour
 {
-    [SerializeField] TMP_InputField emailField;
     [SerializeField] TMP_InputField oldPasswordField;
     [SerializeField] TMP_InputField newPasswordField;
     [SerializeField] TMP_InputField confirmPasswordField;
     [SerializeField] Button changePasswordButton;
-
-    bool isUserLogged;
+    [SerializeField] private Button goBackButton;
 
     void Start()
     {
-        isUserLogged = SupabaseManager.Instance.Supabase.Auth.CurrentSession == null;
-
-        if(isUserLogged)
-        {
-            emailField.gameObject.SetActive(false);
-            oldPasswordField.gameObject.SetActive(true);
-            newPasswordField.gameObject.SetActive(true);
-            confirmPasswordField.gameObject.SetActive(true);
-            changePasswordButton.onClick.AddListener(OnChangePasswordPerformedLoggedIn);
-        }
-        else
-        {
-            emailField.gameObject.SetActive(true);
-            oldPasswordField.gameObject.SetActive(false);
-            newPasswordField.gameObject.SetActive(false);
-            confirmPasswordField.gameObject.SetActive(false);
-        }
-
+        changePasswordButton.onClick.AddListener(OnChangePasswordPerformed);
+        goBackButton.onClick.AddListener(OnGoBackPerformed);
     }
 
-    void OnChangePasswordPerformedLoggedIn()
+
+    public void OnGoBackPerformed()
+    {
+        GameManager.Instance.LoadScene("MainMenu");
+    }
+
+    async void OnChangePasswordPerformed()
     {
         string oldPassword = oldPasswordField.text;
         string newPassword = newPasswordField.text;
@@ -70,18 +60,17 @@ public class ChangePasswordUI : MonoBehaviour
             return;
         }
 
-        AuthController.Instance.ChangePassword(newPassword);
-    }
+        var result = await AuthController.Instance.ChangePassword(newPassword);
 
-    void SendPasswordReset()
-    {
-        string email = emailField.text;
-
-        if (string.IsNullOrEmpty(email))
+        if(result.Success)
         {
-            Debug.Log("Field cannot be empty");
-            return;
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            Debug.LogError($"ERROR AL CAMBIAR LA CONTRASEÑA: {result.ErrorMessage}");
         }
     }
+
 
 }

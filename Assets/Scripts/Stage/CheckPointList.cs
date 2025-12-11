@@ -12,7 +12,7 @@ public class CheckPointList : MonoBehaviour
     [HideInInspector]
     public CheckPointSingle[] checkPointSingles { get; private set; }
 
-    private int lastCheckpointPassed = -1;
+    public int lastCheckpointPassed = -1;
 
     public Action<Direction, int> PaceNoteHandler;
     

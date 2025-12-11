@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Supabase.Gotrue;
 using UnityEngine;
 
 public class DatabaseController : MonoBehaviour
@@ -22,7 +24,6 @@ public class DatabaseController : MonoBehaviour
     public async Task SaveTime(int sector1, int sector2, int sector3)
     {
         var currentUser = SupabaseManager.Instance.Supabase.Auth.CurrentSession?.User;
-        // Clear the schema cache before operations
         
 
         if(currentUser == null)
@@ -60,7 +61,7 @@ public class DatabaseController : MonoBehaviour
             response = await SupabaseManager.Instance.Supabase
             .From<TimeRecord>()
             .Filter("id", Postgrest.Constants.Operator.Equals, currentPB.Id)
-            .Set(x=>x.Sector_1, sector1)
+            .Set(x => x.Sector_1, sector1)
             .Set(x => x.Sector_2, sector2)
             .Set(x => x.Sector_3, sector3)
             .Set(x => x.Car_id, GameManager.Instance.selectedCar.Id)
@@ -118,5 +119,122 @@ public class DatabaseController : MonoBehaviour
             return null;
 
         return result;
+    }
+
+    public async Task<Stats> GetStats()
+    {
+        var user = SupabaseManager.Instance.Supabase.Auth.CurrentUser;
+
+        if(user == null)
+        {
+            return null;
+        } 
+
+        var response = await SupabaseManager.Instance.Supabase
+            .From<Stats>()
+            .Select("*")
+            .Filter("user_uuid", Postgrest.Constants.Operator.Equals, user.Id.ToString())
+            .Limit(1)
+            .Get();
+
+        if (response.Models.Count == 0)
+        {
+            Debug.Log("Devuelve consulta null");
+            return null;
+        } 
+
+        return response.Models[0];
+    }
+
+    public async Task SaveStats(Stats stats)
+    {
+        var user = SupabaseManager.Instance.Supabase.Auth.CurrentUser;
+
+        if(user == null) return;
+
+
+        try
+        {
+            
+            var response = await SupabaseManager.Instance.Supabase
+                .From<Stats>()
+                .Filter("user_uuid", Postgrest.Constants.Operator.Equals, user.Id.ToString())
+                .Set(x => x.DistanceTraveled, stats.DistanceTraveled)
+                .Set(x => x.TotalAttempts, stats.TotalAttempts)
+                .Set(x => x.MostPlayedStage, stats.MostPlayedStage)
+                .Set(x => x.MostUsedCar, stats.MostUsedCar)
+                .Set(x => x.StagePlayed, stats.StagePlayed)
+                .Set(x => x.CarUsage, stats.CarUsage)
+                .Update();
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex.Message);
+        }
+
+        
+    }
+
+    public async Task RegisterStageSession(int stageId)
+    {
+        Stats stats = await GetStats();
+
+        if(stats == null) return;
+
+        int currentSessions = 0;
+
+        if(stats.StagePlayed.ContainsKey(stageId))
+        {
+            currentSessions = stats.StagePlayed[stageId];
+        }
+        else
+        {
+            stats.StagePlayed.Add(stageId, 0);
+        }
+
+        stats.StagePlayed[stageId] = currentSessions+1;
+
+        stats.MostPlayedStage = stats.StagePlayed.OrderByDescending(x => x.Value).First().Key;
+
+        await SaveStats(stats);
+    }
+
+    public async Task RegisterCarSession(int carId)
+    {
+        Stats stats = await GetStats();
+
+        if(stats == null) return;
+
+        int currentSessions = 0;
+
+        if(stats.CarUsage.ContainsKey(carId))
+        {
+            currentSessions = stats.CarUsage[carId];
+        }
+        else
+        {
+            stats.CarUsage.Add(carId, 0);
+        }
+
+        stats.CarUsage[carId] = currentSessions+1;
+
+        stats.MostUsedCar = stats.CarUsage.OrderByDescending(x => x.Value).First().Key;
+
+        await SaveStats(stats);
+    }
+
+    public async Task RegisterAttemptStart()
+    {
+        var stats = await GetStats();
+        if(stats == null) return;
+        stats.TotalAttempts++;
+        await SaveStats(stats);
+    }
+
+    public async Task RegisterDistanceTravelled(int newDistance)
+    {
+        var stats = await GetStats();
+        stats.DistanceTraveled+=newDistance;
+        await SaveStats(stats);
     }
 }

@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SelectScene(int index)
+    public async Task SelectScene(int index)
     {
         if (index >= 0 && index < availableStages.Count)
         {
@@ -103,6 +103,8 @@ public class GameManager : MonoBehaviour
         }
 
         PlayerPrefs.SetString("SceneToLoad", selectedStage.SceneName);
+        await DatabaseController.Instance.RegisterCarSession(selectedCar.Id);
+        await DatabaseController.Instance.RegisterStageSession(selectedStage.Id);
         LoadScene("LoadingScreen");
     }
 

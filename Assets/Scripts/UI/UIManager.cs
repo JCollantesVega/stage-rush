@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -79,12 +80,24 @@ public class UIManager : MonoBehaviour
 
     void StageCompletedHandler(StageCompletedArgs args)
     {
-        Time.timeScale = .2f;
+        StartCoroutine(StageCompletedProcess(args));
+    }
 
+    private IEnumerator StageCompletedProcess(StageCompletedArgs args)
+    {
+        pauseManager.pauseAllowed = false;
+
+        Time.timeScale = .2f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        yield return new WaitForSecondsRealtime(2);
+
+        Time.timeScale = 0;
+        CarController.Instance.carFX.engineSound.Pause();
         completedStageUI.gameObject.SetActive(true);
         CompletedStageUI ui = completedStageUI.GetComponent<CompletedStageUI>();
+        inGameUI.gameObject.SetActive(false);
 
-        ui.TimeLabel.text = $"Tiempo: {args.LapTime.FormatTime(args.LapTime.totalTime)}";
+        ui.TimeLabel.text = args.IsValidTime ? $"Tiempo: {args.LapTime.FormatTime(args.LapTime.totalTime)}" : $"Tiempo no válido: ({args.LapTime.totalTime})";
     }
 
 

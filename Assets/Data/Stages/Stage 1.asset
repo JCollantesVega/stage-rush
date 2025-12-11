@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Stage 1
   m_EditorClassIdentifier: Assembly-CSharp::StageData
   Id: 1
-  Title: Forest
-  SceneName: 01_forest
+  Title: River Travel
+  SceneName: 03_mountain

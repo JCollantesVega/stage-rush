@@ -8,6 +8,8 @@ public class HUD : MonoBehaviour
 
     [Header("Time label")]
     public TextMeshProUGUI timeText;
+    public Image penaltyContainer;
+    public TextMeshProUGUI penaltyText;
 
     [Header("Speed label")]
     public TextMeshProUGUI speedText;
@@ -62,6 +64,11 @@ public class HUD : MonoBehaviour
         currentRPM = CarController.Instance.RPM;
         currentProgress = CheckPointList.Instance.GetCompletedCheckpoints();
         timeText.text = RaceManager.Instance.StageCurrentTime;
+
+        penaltyContainer.enabled = RaceManager.Instance.penalizedTime > 0f;
+        penaltyText.enabled = RaceManager.Instance.penalizedTime > 0f;
+
+        penaltyText.text = $"+{RaceManager.Instance.FormatTime(RaceManager.Instance.penalizedTime)}";
         speedText.text = ((int)(CarController.Instance.speed*3.6f)).ToString();
 
         RPMFill.fillAmount = Mathf.Clamp01(currentRPM / maxRPM);

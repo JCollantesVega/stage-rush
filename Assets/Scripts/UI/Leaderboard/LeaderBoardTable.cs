@@ -17,6 +17,8 @@ public class LeaderBoardTable : MonoBehaviour
         
         int positionIndex = 1;
 
+        if(entries == null || entries.Count == 0) return;
+
         for(int i = 0; i < entries.Count; i++)
         {
             bool isUser = false;
@@ -38,7 +40,6 @@ public class LeaderBoardTable : MonoBehaviour
 
         foreach(LeaderboardRegistry registry in entries)
         {
-            Debug.Log($"Borrar registro {registry}");
             Destroy(registry.gameObject);
         }
     }

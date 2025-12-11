@@ -10,7 +10,7 @@ public class LoginUI : MonoBehaviour
     [SerializeField] private TMP_InputField emailField, passwordField;
     [SerializeField] private Button logInButton, signUpButton;
     [SerializeField] private TextMeshProUGUI invalidCredentialsWarning;
-    [SerializeField] private Toggle keepSession;
+    [SerializeField] private Button goBackButton;
 
     
 
@@ -18,13 +18,13 @@ public class LoginUI : MonoBehaviour
     {
         logInButton.onClick.AddListener(OnLogInPerformed);
         signUpButton.onClick.AddListener(OnSignUpPerformed);
+        goBackButton.onClick.AddListener(OnGoBackPerformed);
         invalidCredentialsWarning.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+        public void OnGoBackPerformed()
     {
-        
+        GameManager.Instance.LoadScene("MainMenu");
     }
 
     public async void OnLogInPerformed()
@@ -37,7 +37,7 @@ public class LoginUI : MonoBehaviour
             email = await AuthController.Instance.GetEmailByUserName(email);
         }
         
-        bool result = await AuthController.Instance.LogInUser(email, passwordField.text, keepSession.isOn);
+        bool result = await AuthController.Instance.LogInUser(email, passwordField.text);
         
         if(!result)
         {

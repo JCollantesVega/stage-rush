@@ -9,6 +9,19 @@ public class LeaderboardRegistry : MonoBehaviour
 
     public void Setup(int position, string userName, int time, string carModel, bool isUser)
     {
+        if(isUser)
+        {
+            positionLabel.fontStyle = FontStyles.Bold;
+            usernameLabel.fontStyle = FontStyles.Bold;
+            timeLabel.fontStyle = FontStyles.Bold;
+            carModelLabel.fontStyle = FontStyles.Bold;
+
+            positionLabel.color = new Color(193,193,193);
+            usernameLabel.color = new Color(193,193,193);
+            timeLabel.color = new Color(193,193,193);
+            carModelLabel.color = new Color(193,193,193);
+        }
+
         positionLabel.text = position.ToString();
         usernameLabel.text = userName;
         timeLabel.text = FormatTime(time);

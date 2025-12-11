@@ -35,6 +35,7 @@ public class MainMenuUI : MonoBehaviour
         logOutButton.onClick.AddListener(OnLogOutClickPerformed);
         logInButton.onClick.AddListener(OnLoginClickPerformed);
         recordsButton.onClick.AddListener(OnRecordsClickPerformed);
+        accountButton.onClick.AddListener(OnAccountClickPerformed);
 
         if(SupabaseManager.Instance.Supabase.Auth.CurrentUser == null)
         {
@@ -80,5 +81,10 @@ public class MainMenuUI : MonoBehaviour
     void OnRecordsClickPerformed()
     {
         GameManager.Instance.LoadScene("RecordsMenu");
+    }
+
+    void OnAccountClickPerformed()
+    {
+        GameManager.Instance.LoadScene("Account");
     }
 }

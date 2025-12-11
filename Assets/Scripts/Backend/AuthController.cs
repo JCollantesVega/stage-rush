@@ -35,8 +35,7 @@ public class AuthController : MonoBehaviour
 
         if(await EmailExists(email))
             return RegisterResult.MailExists;
-        
-        
+
         try
         {
             var signUp = await SupabaseManager.Instance.Supabase.Auth.SignUp(email, password, new SignUpOptions
@@ -47,33 +46,30 @@ public class AuthController : MonoBehaviour
                 }
             });
 
-            
-//            Debug.Log(signUp.User);
-            return RegisterResult.Success;
-            
+            await SupabaseManager.Instance.Supabase.Postgrest.Rpc("create_user_stats", new {p_user_uuid = signUp.User.Id.ToString()});
 
-            
-            
+            return RegisterResult.Success;
+
         }
         catch(Exception ex)
         {
             Debug.LogError(ex.Message);
             if (ex.Message.Contains("User already registered") || ex.Message.Contains("email"))
-            return RegisterResult.MailExists;
+                return RegisterResult.MailExists;
+
+            return RegisterResult.UnknownError;
         }
-
-        return RegisterResult.Success;
-
     }
 
-    public async Task<bool> LogInUser(string email, string password, bool saveSession)
+    public async Task<bool> LogInUser(string email, string password)
     {
         Task<Session> singIn = SupabaseManager.Instance.Supabase.Auth.SignIn(email,password);
 
         try
         {
             await singIn;
-        }catch(Exception ex)
+        }
+        catch(Exception ex)
         {
             Debug.Log("Exception");
             Debug.Log($"{ex.Message}");
@@ -86,9 +82,6 @@ public class AuthController : MonoBehaviour
         {
             return false;
         }
-        
-        PlayerPrefs.SetString("refresh_token", session.RefreshToken);
-        PlayerPrefs.Save();
         OnLoginSuccess?.Invoke();
         return true;
     }
@@ -121,12 +114,20 @@ public class AuthController : MonoBehaviour
         return displayNames;
     }
 
-    public async void ChangePassword(string newPassword)
+    public async Task<(bool Success, string ErrorMessage)> ChangePassword(string newPassword)
     {
-        await SupabaseManager.Instance.Supabase.Auth.Update(new UserAttributes
+        try
         {
-            Password = newPassword
-        });
+            await SupabaseManager.Instance.Supabase.Auth.Update(new UserAttributes
+            {
+                Password = newPassword
+            });
+            return (true, string.Empty);
+        }
+        catch(Exception ex)
+        {
+            return (false, ex.Message);
+        }
     }
 
     public async Task<bool> CanRegisterUser(string userName)
