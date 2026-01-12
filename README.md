@@ -1,6 +1,6 @@
 # Stage Rush #
 
-##Descripción
+##  Descripción
 Stage Rush es un videojuego desarrollado en Unity como proyecto final del CFGS en Desarrollo de aplicaciones Multiplataforma(DAM)
 
 ## Características
